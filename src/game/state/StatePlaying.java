@@ -49,8 +49,8 @@ public class StatePlaying extends BasicGameState {
     }
     
     private void updateViewPort() {
-        camX = player.getX()-VIEW_SIZE_X/2;
-        camY = player.getY()-VIEW_SIZE_Y/2;
+        camX = (int)(player.getX()-VIEW_SIZE_X/2);
+        camY = (int)(player.getY()-VIEW_SIZE_Y/2);
     }
     
     @Override

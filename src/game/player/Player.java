@@ -1,6 +1,6 @@
 package game.player;
 
-import game.state.StatePlaying;
+import game.util.MathHelper;
 import game.util.Plane;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.GameContainer;
@@ -11,16 +11,19 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Plane {
     
-    private int x;
-    private int y;
+    public int MAX_SPEED = 10;
+    public int MIN_SPEED = 1;
+    
+    private double x;
+    private double y;
     
     private int dir;
-    private int speed;
+    private double speed;
     
     private Image sprite;
     
-    public int getX() { return x; }
-    public int getY() { return y; }
+    public double getX() { return x; }
+    public double getY() { return y; }
     
     public Player() {
         x = 256;
@@ -38,8 +41,8 @@ public class Player extends Plane {
     }
     
     public void render(GameContainer container, Graphics g, int cx, int cy) {
-        g.drawImage(sprite,x,y);
-        g.rotate(cx+StatePlaying.VIEW_SIZE_X/2,cy+StatePlaying.VIEW_SIZE_Y/2,dir);
+        g.drawImage(sprite,(int)x,(int)y);
+        g.rotate((int)x,(int)y,dir);
     }
     
     private void resolveMove(Input input, int delta) {
@@ -53,9 +56,12 @@ public class Player extends Plane {
             dDir++;
         if (input.isKeyDown(Input.KEY_A))
             dDir--;
-        speed -= accel;
+        speed += accel/10.0;
         dir -= dDir;
-        y += delta*speed*Math.cos(dir*Math.PI/180)/16;
-        x += delta*speed*Math.sin(dir*Math.PI/180)/16;
+        
+        speed = MathHelper.median(MIN_SPEED,speed,MAX_SPEED);
+                
+        x -= delta*speed*Math.sin(dir*Math.PI/180)/16;
+        y -= delta*speed*Math.cos(dir*Math.PI/180)/16;
     }
 }
