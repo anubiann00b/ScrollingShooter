@@ -12,7 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Player extends Plane {
     
     public int MAX_SPEED = 10;
-    public int MIN_SPEED = 1;
+    public int MIN_SPEED = 2;
     
     private double x;
     private double y;

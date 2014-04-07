@@ -12,8 +12,8 @@ public class Game extends StateBasedGame {
     public static final int STATE_PLAYING = 1;
     public static final int STATE_PAUSED = 2;
     
-    public static final int VIEW_SIZE_X = 640;
-    public static final int VIEW_SIZE_Y = 512;
+    public static int VIEW_SIZE_X;
+    public static int VIEW_SIZE_Y;
     
     public Game() {
         super("Scrolling Shooter");
@@ -35,7 +35,9 @@ public class Game extends StateBasedGame {
     
     /** Sets up the window. */
     private static void setupAGC(AppGameContainer app) throws SlickException {
-        app.setDisplayMode(VIEW_SIZE_X, VIEW_SIZE_Y, false);
+        VIEW_SIZE_X = app.getScreenWidth();
+        VIEW_SIZE_Y = app.getScreenHeight();
+        app.setDisplayMode(VIEW_SIZE_X,VIEW_SIZE_Y,false);
         app.setShowFPS(true);
         app.setVSync(true);
         app.setForceExit(true);
